@@ -64,6 +64,7 @@ const Header = () => {
                   style={{
                     mixBlendMode: 'screen'
                   }}
+                  unoptimized
                 />
               </Link>
             </div>
