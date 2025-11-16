@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: "Agência AJR Website <onboarding@resend.dev>",
       to: ["fernandochamussola@gmail.com"],
-      reply_to: email,
+      replyTo: email,
       subject: `Novo Orçamento - Plano ${planName}`,
       html: htmlContent,
     });
