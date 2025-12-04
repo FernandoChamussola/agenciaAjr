@@ -72,8 +72,8 @@ export async function POST(req: NextRequest) {
     // NOTA: Temporariamente enviando para fernandochamussola@gmail.com
     // Quando o domínio for verificado, altere para contato@agenciaajr.com
     const { data, error } = await resend.emails.send({
-      from: "Agência AJR Website <onboarding@resend.dev>",
-      to: ["fernandochamussola@gmail.com"],
+      from: "Agência AJR Website <noreply@agenciaajr.com>",
+      to: ["contato@agenciaajr.com"],
       replyTo: email,
       subject: `Novo Orçamento - Plano ${planName}`,
       html: htmlContent,
