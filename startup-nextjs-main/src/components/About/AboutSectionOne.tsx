@@ -3,61 +3,66 @@ import SectionTitle from "../Common/SectionTitle";
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
-    <path d="M5.8535 12.6631C5.65824 12.8584 5.34166 12.8584 5.1464 12.6631L0.678505 8.1952C0.483242 7.99994 0.483242 7.68336 0.678505 7.4881L2.32921 5.83739C2.52467 5.64193 2.84166 5.64216 3.03684 5.83791L5.14622 7.95354C5.34147 8.14936 5.65859 8.14952 5.85403 7.95388L13.3797 0.420561C13.575 0.22513 13.8917 0.225051 14.087 0.420383L15.7381 2.07143C15.9333 2.26669 15.9333 2.58327 15.7381 2.77854L5.8535 12.6631Z" />
+    <path d="M5.8535 12.6631c-.19526.1953-.51184.1953-.7071 0L.6785 8.1952c-.19526-.19526-.19526-.51184 0-.7071L2.3292 5.8374c.19547-.19547.51245-.19523.70763.00052l2.1094 2.1156c.19525.19582.51237.19598.7078.00034l7.5257-7.5333c.1953-.19543.512-.1955.7073-.00018l1.6511 1.651c.1953.19526.1953.51185 0 .7071L5.8535 12.6631Z" />
   </svg>
 );
 
 const AboutSectionOne = () => {
   const List = ({ text }) => (
-    <p className="text-body-color mb-5 flex items-center text-lg font-medium">
-      <span className="bg-primary/10 text-primary mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md">
+    <div className="mb-4 flex items-start">
+      <span className="bg-primary/15 text-primary mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
         {checkIcon}
       </span>
-      {text}
-    </p>
+      <p className="text-body-color text-base leading-relaxed">
+        {text}
+      </p>
+    </div>
   );
 
   return (
-    <section id="about" className="pt-16 md:pt-20 lg:pt-28">
+    <section
+      id="about"
+      className="relative overflow-hidden py-20 md:py-24 lg:py-32 bg-slate-950"
+    >
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-600/10 blur-3xl" />
+      </div>
+
       <div className="container">
-        <div className="border-b border-body-color/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
-          <div className="-mx-4 flex flex-wrap items-center">
-            <div className="w-full px-4 lg:w-1/2">
-              <SectionTitle
-                title="Especialistas em tecnologia e marketing que impulsionam marcas."
-                paragraph="Nossa equipe aplica sua ampla experiência para determinar as estratégias que melhor capacitarão nossos clientes. Trabalhamos com paixão por assumir desafios e sempre podemos voar."
-                mb="44px"
-              />
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+          {/* Text */}
+          <div>
+            <SectionTitle
+              title="Estratégia, tecnologia e marketing para acelerar o crescimento da sua marca "
+              paragraph="Somos uma agência focada em resultados. Criamos soluções digitais inteligentes que unem design, tecnologia e estratégia para gerar impacto real no seu negócio."
+              mb="36px"
+            />
 
-              <div
-                className="mb-12 max-w-[570px] lg:mb-0"
-                data-wow-delay=".15s"
-              >
-                <div className="mx-[-12px] flex flex-wrap">
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Gestão e Garantias" />
-                    <List text="Membro de equipe incrível" />
-                    <List text="Qualidade nos serviços" />
-                  </div>
-
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Suporte com excelência" />
-                    <List text="Acompanhamento dedicado" />
-                    <List text="Experiência real" />
-                  </div>
-                </div>
+            <div className="max-w-[520px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                <List text="Estratégias orientadas a dados" />
+                <List text="Equipe experiente e multidisciplinar" />
+                <List text="Alta qualidade em cada entrega" />
+                <List text="Suporte próximo e transparente" />
+                <List text="Processos claros e eficientes" />
+                <List text="Foco total em performance" />
               </div>
             </div>
+          </div>
 
-            <div className="w-full px-4 lg:w-1/2">
-              <div className="relative mx-auto aspect-25/24 max-w-[500px] lg:mr-0">
-                <Image
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&crop=center"
-                  alt="Equipe de especialistas em tecnologia e marketing trabalhando juntos"
-                  fill
-                  className="mx-auto max-w-full rounded-lg drop-shadow-three dark:drop-shadow-none lg:mr-0"
-                />
-              </div>
+          {/* Image */}
+          <div className="relative mx-auto w-full max-w-[520px]">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&fit=crop"
+                alt="Equipe de especialistas em tecnologia e marketing"
+                fill
+                className="object-cover"
+              />
+              {/* overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent" />
             </div>
           </div>
         </div>

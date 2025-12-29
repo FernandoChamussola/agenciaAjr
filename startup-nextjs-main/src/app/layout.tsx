@@ -2,7 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ScrollToTop from "@/components/ScrollToTop";
+import ChatWidget from "@/components/ChatWidget/ChatWidget";
 import { Inter } from "next/font/google";
 import "../styles/index.css";
 
@@ -28,8 +28,8 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <ChatWidget />
           <Footer />
-          <ScrollToTop />
         </Providers>
       </body>
     </html>

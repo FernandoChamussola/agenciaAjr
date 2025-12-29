@@ -12,34 +12,38 @@ export const metadata: Metadata = {
 
 const membros = [
   {
-    nome: "João Silva",
-    cargo: "CEO & Co-Fundador",
-    foto: "https://randomuser.me/api/portraits/men/1.jpg",
+    nome: "Abel",
+    cargo: "CEO & Co-Fundador", // Chief Executive Officer
+    foto: "/images/teams/Abel.png",
   },
   {
-    nome: "Maria Santos",
-    cargo: "Gerente de Projetos",
-    foto: "https://randomuser.me/api/portraits/women/2.jpg",
+    nome: "Batista Elisio",
+    cargo: "CLO - Chief Legal Officer", // Responsável por documentos e conformidade legal
+    foto: "/images/teams/semimg.png",
   },
   {
-    nome: "Carlos Oliveira",
-    cargo: "Desenvolvedor Chefe",
-    foto: "https://randomuser.me/api/portraits/men/3.jpg",
+    nome: "Clesio Lopes",
+    cargo: "CDO - Chief Digital Officer", // Focado em estratégia digital
+    foto: "/images/teams/clesio.png",
   },
   {
-    nome: "Ana Souza",
-    cargo: "Analista de Marketing",
-    foto: "https://randomuser.me/api/portraits/women/4.jpg",
+    nome: "Fernando Andre",
+    cargo: "CIO - Chief Information Officer", // Responsável por TI e sistemas internos
+    foto: "/images/teams/Fernando.png",
+  },
+  {
+    nome: "Humberto Rodrigues",
+    cargo: "CCO - Chief Creative Officer", // Responsável por design e criatividade
+    foto: "/images/teams/Humberto.png",
   },
 ];
+
+
 
 const AboutPage = () => {
   return (
     <>
-      <Breadcrumb
-        pageName="About Page"
-        description="Saiba mais sobre nossa empresa, equipe e missão."
-      />
+
       <AboutSectionOne />
       {/* <AboutSectionTwo /> */}
 

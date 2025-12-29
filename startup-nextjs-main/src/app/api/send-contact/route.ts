@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     // Quando o domínio for verificado, altere para contato@agenciaajr.com
     const { data, error } = await resend.emails.send({
       from: "Agência AJR Website <noreply@agenciaajr.com>",
-      to: ["contato@agenciaajr.com"],
+      to: ["contacto@agenciaajr.com"],
       replyTo: email,
       subject: `Nova Mensagem de ${name}`,
       html: htmlContent,

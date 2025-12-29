@@ -10,7 +10,7 @@ const Portfolio = () => {
     >
       <div className="container">
         <SectionTitle
-          title="Nosso Último Projeto"
+          title="Nossos Últimos Projetos "
           paragraph="Ainda temos mais projetos recentes que fizemos."
           center
         />

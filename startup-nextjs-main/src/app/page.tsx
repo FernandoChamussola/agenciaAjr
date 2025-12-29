@@ -36,6 +36,7 @@ export default function Home() {
       <Pricing />
       <Testimonials />
       <Contact />
+
     </>
   );
 }
