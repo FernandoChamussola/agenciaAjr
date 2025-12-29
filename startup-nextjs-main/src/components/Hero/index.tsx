@@ -35,7 +35,7 @@ const Hero = () => {
             {/* CTA */}
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                href="/contato"
+                href="/planos"
                 className="rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:opacity-90"
               >
                 Solicitar orçamento
