@@ -57,33 +57,33 @@ export async function POST(req: Request) {
     const { pergunta } = await req.json();
     const normalized = normalizeText(pergunta || "");
 
-    // --- Tenta Gemini ---
+    // --- Tenta Gemini primeiro ---
     try {
       const ai = new GoogleGenAI({});
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: createUserContent([
-          `Você é um assistente amigável da Agência AJR.
+        contents: createUserContent([`
+Você é um assistente amigável da Agência AJR.
 
-          Informações básicas da AJR:
-          - Localização: Moçambique
-          - Email: contato@agenciaajr.com
-          - Site: https://agenciaajr.com
-          - Serviços: consultoria, gestão de redes sociais, criação de conteúdo, planejamento estratégico
-          - Planos e preços:
-            1. Básico: Gestão de redes sociais e consultoria inicial
-            2. Intermediário: Gestão completa de marketing digital, incluindo anúncios e análise de resultados
-            3. Premium: Todos os serviços anteriores, mais criação de conteúdo personalizado e acompanhamento contínuo
+Informações básicas:
+- Localização: Moçambique
+- Email: contato@agenciaajr.com
+- Site: https://agenciaajr.com
+- Serviços: consultoria, gestão de redes sociais, criação de conteúdo, planejamento estratégico
+- Planos e preços:
+  1. Básico: Gestão de redes sociais e consultoria inicial
+  2. Intermediário: Gestão completa de marketing digital, incluindo anúncios e análise de resultados
+  3. Premium: Todos os serviços anteriores, mais criação de conteúdo personalizado e acompanhamento contínuo
 
-          Regras:
-          1. Para saudações ou perguntas triviais como "oi", "olá", responda naturalmente e curto.
-          2. Para perguntas sobre planos, preços, serviços ou contato, use apenas as informações acima.
-          3. Nunca invente informações que não estejam acima.
-          4. Se não houver resposta clara, diga: "Desculpe, não sei a resposta exata. Por favor entre em contato pelo email contato@agenciaajr.com".
-          5. Seja direto e objetivo, mas educado.
+Regras:
+1. Para saudações ou perguntas triviais como "oi", "olá", responda naturalmente e curto.
+2. Para perguntas sobre planos, preços, serviços ou contato, use apenas as informações acima.
+3. Nunca invente informações que não estejam acima.
+4. Se não houver resposta clara, diga: "Desculpe, não sei a resposta exata. Por favor entre em contato pelo email contato@agenciaajr.com".
+5. Seja direto e objetivo, mas educado.
 
-          Pergunta do usuário: "${normalized}"`
-        ]),
+Pergunta do usuário: "${normalized}"
+        `]),
         config: {
           temperature: 0.1,
           maxOutputTokens: 2000,
@@ -91,10 +91,24 @@ export async function POST(req: Request) {
         }
       });
 
-      const geminiReply =
-        response.text?.trim() || 
-        response.candidates?.[0]?.content?.text?.trim() || 
-        "";
+      // --- Pegando a resposta de forma segura ---
+      let geminiReply = "";
+
+      if (response.text) {
+        geminiReply = response.text.trim();
+      } else if (response.candidates?.length > 0) {
+        const firstCandidate = response.candidates[0];
+        const content = firstCandidate.content;
+
+        if (Array.isArray(content)) {
+          geminiReply = content
+            .map((c: any) => (c.text ? c.text : ""))
+            .join(" ")
+            .trim();
+        } else if ((content as any).text) {
+          geminiReply = (content as any).text.trim();
+        }
+      }
 
       if (geminiReply) {
         console.log("✅ Resposta Gemini:", geminiReply);
@@ -102,6 +116,7 @@ export async function POST(req: Request) {
       }
 
       throw new Error("Gemini não retornou resposta");
+
     } catch (geminiError) {
       console.error("❌ Gemini erro, usando fallback:", geminiError);
 
@@ -114,7 +129,7 @@ export async function POST(req: Request) {
         resposta = chooseFallback("planos");
       } else if (/contato|email|telefone/.test(normalized)) {
         resposta = chooseFallback("contato");
-      } else if (/localização|endereço|onde/.test(normalized)) {
+      } else if (/localização|localizacao|endereço|onde/.test(normalized)) {
         resposta = chooseFallback("localizacao");
       } else if (/serviço|servicos|o que faz/.test(normalized)) {
         resposta = chooseFallback("servicos");
@@ -122,6 +137,7 @@ export async function POST(req: Request) {
 
       return NextResponse.json({ resposta });
     }
+
   } catch (err) {
     console.error("Erro na API do bot:", err);
     return NextResponse.json(
